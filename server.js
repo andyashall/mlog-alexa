@@ -19,8 +19,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// var url = 'mongodb://docker6279hdYaJG27h:83J7Gh3d9gd6dIqtZh2d3@ds055822.mlab.com:55822/heroku_506fmv6t';
-
 const url = require('./mongo.config.js');
 
 MongoClient.connect(url, function(err, db) {
@@ -42,7 +40,45 @@ function findUser(db, name, callback) {
   });
 };
 
+function createMeeting(db, title, id, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var Meetings = db.collection('meetings');
+    var meetingUrl = createUrl(title);
+    Meetings.insert({
+      creator: id,
+      created: new Date(),
+      book: "Alexa",
+      title: title,
+      url: meetingUrl,
+      body: "",
+      attendeesString: [id],
+      actions: 0,
+      decisions: 0,
+      risks: 0,
+      info: 0
+    },
+    function(err, result) {
+        assert.equal(err, null);
+        console.log("Meeting Created");
+        callback(result);
+        db.close();
+      }
+    );
+  });   
+};
 
+function createUrl(title) {
+    var dirty = title.replace(/-/g, "").replace(/\//g, "-").replace(/\s+/g, '-').toLowerCase(),
+        symToText = dirty.replace(/&/g, "and").replace(/@/g, "at"),
+        meetingUrl = symToText.replace(/[|&;$%@"<>()+,]/g, "") + "-" + getRandom(5);
+    return meetingUrl;  
+};
+
+function getRandom(length) {
+return Math.floor(Math.pow(10, length-1) + Math.random() * 9 * Math.pow(10, length-1));
+};
 
 // API
 
@@ -92,14 +128,29 @@ app.post('/api/login', function response(req, res) {
 
 app.post('/api/createmeeting', function response(req, res) {
   var meetingName = req.body.meetingName;
+  var id = req.body.userId;
   var meetingId = "987654321";
-  res.status(200).json({
-    message: "Created meeting called " + meetingName,
-    meetingId: meetingId
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+
+  createMeeting(db, meetingName, id, function(data, err){
+    if (!data) {
+      console.log("error");
+    } else {
+      console.log(res);
+      res.status(200).json({
+        message: "Created meeting called " + meetingName,
+        meetingId: meetingId
+      });
+      res.end();
+    };
   });
-  res.end();
+  });
+
   console.log(req.body);
-  // insertPage(req.body.title, req.body.body);
 });
 
 app.post('/api/createaction', function response(req, res) {
