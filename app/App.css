@@ -1,12 +1,21 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	background-color: #f6f6f6;
+	background-color: rgba(0,0,0,.55);
 }
 
 .app {
 	min-height: 100vh;
 	position: relative;
+}
+
+h1 {
+	font-family: helvetica;
+	position: fixed;
+	left: 50%;
+	top: 2rem;
+	color: #fff;
+	transform: translateX(-50%);
 }
 
 .butts {

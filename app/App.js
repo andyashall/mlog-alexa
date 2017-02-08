@@ -43,10 +43,16 @@ export default class App extends React.Component {
     } )
   }
   createMeeting() {
-    var meetingName = "Test meeting"
+    var meetingName = document.getElementById("mn").value
     var data = {
       userId: userId,
       meetingName: meetingName
+    }
+    if (!userId) {
+      return
+    }
+    if (meetingName == "") {
+      return
     }
     axios.post('/api/createmeeting', data)
     .then( (res) => {
@@ -58,11 +64,20 @@ export default class App extends React.Component {
     } )
   }
   createAction() {
-    var action = "This is the action content"
+    var action = document.getElementById("an").value
     var data = {
       userId: userId,
       meetingId: meetingId,
       action: action
+    }
+    if (!userId) {
+      return
+    }
+    if (!meetingId) {
+      return
+    }
+    if (action == "") {
+      return
     }
     axios.post('/api/createaction', data)
     .then( (res) => {
@@ -75,11 +90,14 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={style.app}>
+        <h1>mlog-alexa</h1>
         <div className={style.butts}>
           <button onClick={this.init}>Initiate alexa</button>
-          <input id="un" placeholder="Username" />
+          <input id="un" placeholder="Username..." />
           <button onClick={this.login}>Say name to alexa</button>
-          <button onClick={this.createMeeting}>Create Action</button>
+          <input id="mn" placeholder="Meeting Name..." />
+          <button onClick={this.createMeeting}>Create Meeting</button>
+          <input id="an" placeholder="Action Name..." />
           <button onClick={this.createAction}>Create Action</button>
         </div>
       </div>
