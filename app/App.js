@@ -28,7 +28,7 @@ export default class App extends React.Component {
     } )
   }
   login() {
-    name = "andy"
+    name = document.getElementById(style.username).value
     var data = {
       username: name
     }
@@ -77,6 +77,7 @@ export default class App extends React.Component {
       <div className={style.app}>
         <div className={style.butts}>
           <button onClick={this.init}>Initiate alexa</button>
+          <input id={style.username} placeholder="Username" />
           <button onClick={this.login}>Say name to alexa</button>
           <button onClick={this.createMeeting}>Create Action</button>
           <button onClick={this.createAction}>Create Action</button>
