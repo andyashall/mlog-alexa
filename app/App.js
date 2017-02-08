@@ -4,6 +4,7 @@ import axios from 'axios'
 
 var name 
 var userId
+var meetingId
 
 export default class App extends React.Component {
   constructor(props) {
@@ -42,7 +43,6 @@ export default class App extends React.Component {
     } )
   }
   createMeeting() {
-    var username = "andy"
     var meetingName = "Test meeting"
     var data = {
       userId: userId,
@@ -50,7 +50,23 @@ export default class App extends React.Component {
     }
     axios.post('/api/createmeeting', data)
     .then( (res) => {
-      console.log(res.data)
+      console.log(res.data.message)
+      meetingId = res.data.meetingId
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
+  createAction() {
+    var action = "This is the action content"
+    var data = {
+      userId: userId,
+      meetingId: meetingId,
+      action: action
+    }
+    axios.post('/api/createaction', data)
+    .then( (res) => {
+      console.log(res.data.message)
     } )
     .catch( (err) => {
       console.log(err)
@@ -62,7 +78,8 @@ export default class App extends React.Component {
         <div className={style.butts}>
           <button onClick={this.init}>Initiate alexa</button>
           <button onClick={this.login}>Say name to alexa</button>
-          <button onClick={this.createMeeting}>Say "create meeting called test meeting"</button>
+          <button onClick={this.createMeeting}>Create Action</button>
+          <button onClick={this.createAction}>Create Action</button>
         </div>
       </div>
     );

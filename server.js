@@ -43,7 +43,21 @@ app.post('/api/login', function response(req, res) {
 
 app.post('/api/createmeeting', function response(req, res) {
   var meetingName = req.body.meetingName;
-  res.write("Created meeting called  " + meetingName);
+  var meetingId = "987654321";
+  res.status(200).json({
+    message: "Created meeting called " + meetingName,
+    meetingId: meetingId
+  });
+  res.end();
+  console.log(req.body);
+  // insertPage(req.body.title, req.body.body);
+});
+
+app.post('/api/createaction', function response(req, res) {
+  var action = req.body.action;
+  res.status(200).json({
+    message: "Created action: " + action
+  });
   res.end();
   console.log(req.body);
   // insertPage(req.body.title, req.body.body);
