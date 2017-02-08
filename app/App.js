@@ -1,15 +1,18 @@
 import React from 'react';
-import styles from './App.css';
+import style from './App.css';
 import axios from 'axios'
+
+var name 
+var userId
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {test: 'foo'};
+    this.state = {name: ''};
   }
   init() {
-    var title = document.getElementById(style.title).value,
-        body = document.getElementById(style.body).innerHTML;
+    var title = "title",
+        body = "dody";
     console.log(body + ", " + title)
     var data = {
       title: title,
@@ -23,12 +26,44 @@ export default class App extends React.Component {
       console.log(err)
     } )
   }
+  login() {
+    name = "andy"
+    var data = {
+      username: name
+    }
+    axios.post('/api/login', data)
+    .then( (res) => {
+      console.log(res.data.message)
+      userId = res.data.userId
+      console.log(userId)
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
+  createMeeting() {
+    var username = "andy"
+    var meetingName = "Test meeting"
+    var data = {
+      userId: userId,
+      meetingName: meetingName
+    }
+    axios.post('/api/createmeeting', data)
+    .then( (res) => {
+      console.log(res.data)
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
   render() {
     return (
-      <div className={styles.app}>
-        <button onClick={this.init}>Initiate alexa</button>
-        <button>Say name to alexa</button>
-        <button>Say "create meeting called test meeting"</button>
+      <div className={style.app}>
+        <div className={style.butts}>
+          <button onClick={this.init}>Initiate alexa</button>
+          <button onClick={this.login}>Say name to alexa</button>
+          <button onClick={this.createMeeting}>Say "create meeting called test meeting"</button>
+        </div>
       </div>
     );
   }

@@ -1,12 +1,19 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	
 }
 
 .app {
-  background-color: green;
-  height: 50px;
-  border: 1px solid blue;
+	min-height: 100vh;
+	position: relative;
+}
+
+.butts {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);	
 }
 
 .bap {

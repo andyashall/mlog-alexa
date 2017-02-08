@@ -11,6 +11,66 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// API
+
+// var name, userId;
+
+app.post('/api/hello', function response(req, res) {
+  res.write("Opening mlog, to log in please state your name");
+  res.end();
+  console.log(req.body);
+  // insertPage(req.body.title, req.body.body);
+});
+
+app.post('/api/login', function response(req, res) {
+  var name = req.body.username;
+  var userId = "1234";
+  // userId = Meteor.users.findOne({'profile.fullName': name})._id;
+  res.status(200).json({
+    message: "logged in as " + name,
+    userId: userId
+  });
+  res.end();
+  
+  console.log(req.body);
+  // insertPage(req.body.title, req.body.body);
+});
+
+app.post('/api/createmeeting', function response(req, res) {
+  var meetingName = req.body.meetingName;
+  res.write("Created meeting called  " + meetingName);
+  res.end();
+  console.log(req.body);
+  // insertPage(req.body.title, req.body.body);
+});
+
+app.get('/api/getPosts', function(req, res) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+    // insertDocuments(db, function() {
+    //   db.close();
+    // });
+    findDocuments(db, 'posts', function(data) {
+    if(err){
+        res.status(500).send("something went wrong");
+    }else{
+        res.send(data);
+        db.close();
+    }
+
+    });
+  });
+});
+
+// Webpack
+
 if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
