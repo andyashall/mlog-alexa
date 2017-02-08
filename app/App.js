@@ -1,5 +1,5 @@
-import React from 'react';
-import style from './App.css';
+import React from 'react'
+import style from './App.css'
 import axios from 'axios'
 
 var name 
@@ -8,12 +8,12 @@ var meetingId
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {name: ''};
+    super(props)
+    this.state = {name: ''}
   }
   init() {
     var title = "title",
-        body = "dody";
+        body = "dody"
     console.log(body + ", " + title)
     var data = {
       title: title,
@@ -82,6 +82,6 @@ export default class App extends React.Component {
           <button onClick={this.createAction}>Create Action</button>
         </div>
       </div>
-    );
+    )
   }
 }
