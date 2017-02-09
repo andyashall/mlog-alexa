@@ -27,6 +27,7 @@
     "babel-cli": "^6.4.0",
     "body-parser": "^1.16.0",
     "mongodb": "^2.2.22",
+    "random-id": "0.0.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
   },

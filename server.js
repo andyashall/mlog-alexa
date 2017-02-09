@@ -11,6 +11,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
+const randomID = require("random-id");
+
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
@@ -48,6 +50,7 @@ function createMeeting(db, title, id, callback) {
     var Meetings = db.collection('meetings');
     var meetingUrl = createUrl(title);
     Meetings.insertOne({
+      _id: randomID(20),
       creator: id,
       created: new Date(),
       book: "Alexa",
@@ -77,6 +80,7 @@ function createAction(db, actionText, id, meetingId, callback) {
     console.log("Connected correctly to server");
     var Actions = db.collection('actions');
     Actions.insertOne({
+      _id: randomID(20),
       creator: id,
       created: new Date(),
       who: "",
