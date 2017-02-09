@@ -49,6 +49,7 @@ var handlers = {
     }
  
 };
+res.send("hello");
 });
 
 exports.handler = function(event, context, callback){
