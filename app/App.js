@@ -88,6 +88,78 @@ export default class App extends React.Component {
       console.log(err)
     } )
   }
+  createDecision() {
+    var decision = document.getElementById("dn").value
+    var data = {
+      userId: userId,
+      meetingId: meetingId,
+      decision: decision
+    }
+    if (!userId) {
+      return
+    }
+    if (!meetingId) {
+      return
+    }
+    if (decision == "") {
+      return
+    }
+    axios.post('/api/createdecision', data)
+    .then( (res) => {
+      console.log(res.data.message)
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
+  createRisk() {
+    var risk = document.getElementById("rn").value
+    var data = {
+      userId: userId,
+      meetingId: meetingId,
+      risk: risk
+    }
+    if (!userId) {
+      return
+    }
+    if (!meetingId) {
+      return
+    }
+    if (risk == "") {
+      return
+    }
+    axios.post('/api/createrisk', data)
+    .then( (res) => {
+      console.log(res.data.message)
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
+  createInfo() {
+    var info = document.getElementById("in").value
+    var data = {
+      userId: userId,
+      meetingId: meetingId,
+      info: info
+    }
+    if (!userId) {
+      return
+    }
+    if (!meetingId) {
+      return
+    }
+    if (info == "") {
+      return
+    }
+    axios.post('/api/createinfo', data)
+    .then( (res) => {
+      console.log(res.data.message)
+    } )
+    .catch( (err) => {
+      console.log(err)
+    } )
+  }
   render() {
     return (
       <div className={style.app}>
@@ -100,6 +172,12 @@ export default class App extends React.Component {
           <button onClick={this.createMeeting}>Create Meeting</button>
           <input id="an" placeholder="Action Name..." />
           <button onClick={this.createAction}>Create Action</button>
+          <input id="dn" placeholder="Decision Name..." />
+          <button onClick={this.createDecision}>Create Decision</button>
+          <input id="rn" placeholder="Risk Name..." />
+          <button onClick={this.createRisk}>Create Risk</button>
+          <input id="in" placeholder="Info Name..." />
+          <button onClick={this.createInfo}>Create Info</button>
         </div>
       </div>
     )

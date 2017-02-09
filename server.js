@@ -79,7 +79,7 @@ function createAction(db, actionText, id, meetingId, callback) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
     var Actions = db.collection('actions');
-    var Meetings = db.collection('meetings');
+    // var Meetings = db.collection('meetings');
     Actions.insertOne({
       _id: randomID(20),
       creator: id,
@@ -91,11 +91,98 @@ function createAction(db, actionText, id, meetingId, callback) {
       completed: ""
     },
     function(err, result) {
-        Meetings.update(meetingId, {$inc: {
-          actions: 1
-        }});
+        // Meetings.update(meetingId, {$inc: {
+        //   actions: 1
+        // }});
         assert.equal(err, null);
         console.log("Action Created");
+        callback(result);
+        db.close();
+      }
+    );
+  });   
+};
+
+function createDecision(db, decisionText, id, meetingId, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var Decisions = db.collection('decisions');
+    // var Meetings = db.collection('meetings');
+    Decisions.insertOne({
+      _id: randomID(20),
+      creator: id,
+      created: new Date(),
+      who: "",
+      decisionText: decisionText,
+      meetingId: meetingId,
+      completeBy: new Date(),
+      completed: ""
+    },
+    function(err, result) {
+        // Meetings.update(meetingId, {$inc: {
+        //   decisions: 1
+        // }});
+        assert.equal(err, null);
+        console.log("Decision Created");
+        callback(result);
+        db.close();
+      }
+    );
+  });   
+};
+
+function createRisk(db, riskText, id, meetingId, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var Risks = db.collection('risks');
+    // var Meetings = db.collection('meetings');
+    Risks.insertOne({
+      _id: randomID(20),
+      creator: id,
+      created: new Date(),
+      who: "",
+      riskText: riskText,
+      meetingId: meetingId,
+      completeBy: new Date(),
+      completed: ""
+    },
+    function(err, result) {
+        // Meetings.update(meetingId, {$inc: {
+        //   risks: 1
+        // }});
+        assert.equal(err, null);
+        console.log("Risk Created");
+        callback(result);
+        db.close();
+      }
+    );
+  });   
+};
+
+function createInfo(db, infoText, id, meetingId, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var Info = db.collection('info');
+    // var Meetings = db.collection('meetings');
+    Info.insertOne({
+      _id: randomID(20),
+      creator: id,
+      created: new Date(),
+      who: "",
+      infoText: infoText,
+      meetingId: meetingId,
+      completeBy: new Date(),
+      completed: ""
+    },
+    function(err, result) {
+        // Meetings.update(meetingId, {$inc: {
+        //   info: 1
+        // }});
+        assert.equal(err, null);
+        console.log("Info Created");
         callback(result);
         db.close();
       }
@@ -201,6 +288,84 @@ app.post('/api/createaction', function response(req, res) {
       console.log(res);
       res.status(200).json({
         message: "Created action called " + actionText
+      });
+      res.end();
+    };
+  });
+  });
+
+  console.log(req.body);
+});
+
+app.post('/api/createdecision', function response(req, res) {
+  var id = req.body.userId;
+  var meetingId = req.body.meetingId;
+  var decisionText = req.body.decision;
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+
+  createAction(db, decisionText, id, meetingId, function(data, err){
+    if (!data) {
+      console.log("error");
+    } else {
+      console.log(res);
+      res.status(200).json({
+        message: "Created decision called " + decisionText
+      });
+      res.end();
+    };
+  });
+  });
+
+  console.log(req.body);
+});
+
+app.post('/api/createrisk', function response(req, res) {
+  var id = req.body.userId;
+  var meetingId = req.body.meetingId;
+  var riskText = req.body.risk;
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+
+  createAction(db, riskText, id, meetingId, function(data, err){
+    if (!data) {
+      console.log("error");
+    } else {
+      console.log(res);
+      res.status(200).json({
+        message: "Created risk called " + riskText
+      });
+      res.end();
+    };
+  });
+  });
+
+  console.log(req.body);
+});
+
+app.post('/api/createinfo', function response(req, res) {
+  var id = req.body.userId;
+  var meetingId = req.body.meetingId;
+  var infoText = req.body.info;
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+
+  createAction(db, infoText, id, meetingId, function(data, err){
+    if (!data) {
+      console.log("error");
+    } else {
+      console.log(res);
+      res.status(200).json({
+        message: "Created info called " + infoText
       });
       res.end();
     };
