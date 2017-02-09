@@ -57,6 +57,7 @@ export default class App extends React.Component {
     axios.post('/api/createmeeting', data)
     .then( (res) => {
       console.log(res.data.message)
+      console.log(res.data.meetingId)
       meetingId = res.data.meetingId
     } )
     .catch( (err) => {

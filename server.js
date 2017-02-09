@@ -41,6 +41,18 @@ function findUser(db, name, callback) {
   });
 };
 
+function findMeetingId(db, meetingUrl) {
+  var user = db.collection('meetings').findOne({url: meetingUrl}, function(err, doc){
+    if (doc) {
+      return doc;
+      console.log(doc);
+    } else {
+      return err;
+      console.log(doc);
+    };
+  });
+};
+
 function createMeeting(db, title, id, callback) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
@@ -63,7 +75,8 @@ function createMeeting(db, title, id, callback) {
     function(err, result) {
         assert.equal(err, null);
         console.log("Meeting Created");
-        callback(result);
+        var meetingId = findMeetingId(meetingUrl)._id;
+        callback(result, meetingId);
         db.close();
       }
     );
@@ -128,6 +141,32 @@ app.post('/api/login', function response(req, res) {
 });
 
 app.post('/api/createmeeting', function response(req, res) {
+  var meetingName = req.body.meetingName;
+  var id = req.body.userId;
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+   
+
+  createMeeting(db, meetingName, id, function(data, meetingId, err){
+    if (!data) {
+      console.log("error");
+    } else {
+      console.log(res);
+      res.status(200).json({
+        message: "Created meeting called " + meetingName,
+        meetingId: meetingId
+      });
+      res.end();
+    };
+  });
+  });
+
+  console.log(req.body);
+});
+
+app.post('/api/createaction', function response(req, res) {
   var meetingName = req.body.meetingName;
   var id = req.body.userId;
   var meetingId = "987654321";
