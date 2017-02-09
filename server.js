@@ -307,7 +307,7 @@ app.post('/api/createdecision', function response(req, res) {
     console.log("Connected correctly to server");
    
 
-  createAction(db, decisionText, id, meetingId, function(data, err){
+  createDecision(db, decisionText, id, meetingId, function(data, err){
     if (!data) {
       console.log("error");
     } else {
@@ -333,7 +333,7 @@ app.post('/api/createrisk', function response(req, res) {
     console.log("Connected correctly to server");
    
 
-  createAction(db, riskText, id, meetingId, function(data, err){
+  createRisk(db, riskText, id, meetingId, function(data, err){
     if (!data) {
       console.log("error");
     } else {
@@ -359,7 +359,7 @@ app.post('/api/createinfo', function response(req, res) {
     console.log("Connected correctly to server");
    
 
-  createAction(db, infoText, id, meetingId, function(data, err){
+  createInfo(db, infoText, id, meetingId, function(data, err){
     if (!data) {
       console.log("error");
     } else {
