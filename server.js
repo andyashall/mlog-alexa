@@ -116,7 +116,6 @@ function createDecision(db, decisionText, id, meetingId, callback) {
       who: "",
       decisionText: decisionText,
       meetingId: meetingId,
-      completeBy: new Date(),
       completed: ""
     },
     function(err, result) {
@@ -145,7 +144,8 @@ function createRisk(db, riskText, id, meetingId, callback) {
       who: "",
       riskText: riskText,
       meetingId: meetingId,
-      completeBy: new Date(),
+      weighting: "red",
+      weightingNo: 1,
       completed: ""
     },
     function(err, result) {
@@ -174,7 +174,6 @@ function createInfo(db, infoText, id, meetingId, callback) {
       who: "",
       infoText: infoText,
       meetingId: meetingId,
-      completeBy: new Date(),
       completed: ""
     },
     function(err, result) {
