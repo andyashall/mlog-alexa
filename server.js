@@ -41,17 +41,17 @@ function findUser(db, name, callback) {
   });
 };
 
-function findMeetingId(db, meetingUrl) {
-  var user = db.collection('meetings').findOne({url: meetingUrl}, function(err, doc){
-    if (doc) {
-      return doc;
-      console.log(doc);
-    } else {
-      return err;
-      console.log(doc);
-    };
-  });
-};
+// function findMeetingId(db, meetingUrl) {
+//   var user = db.collection('meetings').findOne({url: meetingUrl}, function(err, doc){
+//     if (doc) {
+//       return doc;
+//       console.log(doc);
+//     } else {
+//       return err;
+//       console.log(doc);
+//     };
+//   });
+// };
 
 function createMeeting(db, title, id, callback) {
   MongoClient.connect(url, function(err, db) {
@@ -59,7 +59,7 @@ function createMeeting(db, title, id, callback) {
     console.log("Connected correctly to server");
     var Meetings = db.collection('meetings');
     var meetingUrl = createUrl(title);
-    Meetings.insert({
+    Meetings.insertOne({
       creator: id,
       created: new Date(),
       book: "Alexa",
@@ -75,8 +75,8 @@ function createMeeting(db, title, id, callback) {
     function(err, result) {
         assert.equal(err, null);
         console.log("Meeting Created");
-        var meetingId = findMeetingId(meetingUrl)._id;
-        callback(result, meetingId);
+        var meetingId = result.insertedId;
+        callback(meetingId);
         db.close();
       }
     );
@@ -149,14 +149,14 @@ app.post('/api/createmeeting', function response(req, res) {
     console.log("Connected correctly to server");
    
 
-  createMeeting(db, meetingName, id, function(data, meetingId, err){
+  createMeeting(db, meetingName, id, function(data, err){
     if (!data) {
       console.log("error");
     } else {
       console.log(res);
       res.status(200).json({
         message: "Created meeting called " + meetingName,
-        meetingId: meetingId
+        meetingId: data
       });
       res.end();
     };
