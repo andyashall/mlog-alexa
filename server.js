@@ -13,6 +13,8 @@ const app = express();
 
 const randomID = require("random-id");
 
+var Alexa = require('alexa-sdk');
+
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
@@ -28,6 +30,42 @@ MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server");
 });
+
+// Alexa biz
+
+app.get('/api/alexa', function response(req, res) {
+exports.handler = function(event, context, callback){
+    var alexa = Alexa.handler(event, context);
+};
+
+var handlers = {
+
+    'LaunchRequest': function () {
+        this.emit('HelloWorldIntent');
+    },
+
+    'HelloWorldIntent': function () {
+        this.emit(':tell', 'Hello World!');
+    }
+ 
+};
+});
+
+exports.handler = function(event, context, callback){
+    var alexa = Alexa.handler(event, context);
+};
+
+var handlers = {
+
+    'LaunchRequest': function () {
+        this.emit('HelloWorldIntent');
+    },
+
+    'HelloWorldIntent': function () {
+        this.emit(':tell', 'Hello World!');
+    }
+ 
+};
 
 // Funcs
 
