@@ -19,7 +19,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-const url = require('./mongo.config.js');
+// const url = require('./mongo.config.js');
+const url = process.env.MONGO_URL;
 
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
@@ -111,7 +112,7 @@ app.post('/api/login', function response(req, res) {
       } else {
         userId = data._id;
         res.status(200).json({
-          message: "logged in as " + name,
+          message: "logging in as " + name + " please login to the mlog web app to confirm your login attempt",
           userId: userId
         });
         // res.send(data);

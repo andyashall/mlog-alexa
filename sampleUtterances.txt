@@ -1,0 +1,31 @@
+CreateMeetingIntent create a meeting called {meeting|meetingName}
+CreateMeetingIntent create a meeting called {meeting name|meetingName}
+CreateMeetingIntent create a meeting called {meeting name for|meetingName}
+CreateMeetingIntent create a meeting called {meeting name for agile|meetingName}
+CreateMeetingIntent create a meeting called {meeting name for agile team|meetingName}
+
+CreateActionIntent create a action called {action|actionName}
+CreateActionIntent create a action called {action name|actionName}
+CreateActionIntent create a action called {action name for|actionName}
+CreateActionIntent create a action called {action name for agile|actionName}
+CreateActionIntent create a action called {action name for agile team|actionName}
+
+CreateDecisionIntent create a decision called {decision|decisionName}
+CreateDecisionIntent create a decision called {decision name|decisionName}
+CreateDecisionIntent create a decision called {decision name for|decisionName}
+CreateDecisionIntent create a decision called {decision name for agile|decisionName}
+CreateDecisionIntent create a decision called {decision name for agile team|decisionName}
+
+CreateRiskIntent create a risk called {risk|riskName}
+CreateRiskIntent create a risk called {risk name|riskName}
+CreateRiskIntent create a risk called {risk name for|riskName}
+CreateRiskIntent create a risk called {risk name for agile|riskName}
+CreateRiskIntent create a risk called {risk name for agile team|riskName}
+
+CreateInfoIntent create a info called {info|infoName}
+CreateInfoIntent create a info called {info name|infoName}
+CreateInfoIntent create a info called {info name for|infoName}
+CreateInfoIntent create a info called {info name for agile|infoName}
+CreateInfoIntent create a info called {info name for agile team|infoName}
+
+LoginIntent {andy|username}
