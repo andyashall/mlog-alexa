@@ -79,6 +79,7 @@ function createAction(db, actionText, id, meetingId, callback) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
     var Actions = db.collection('actions');
+    var Meetings = db.collection('meetings');
     Actions.insertOne({
       _id: randomID(20),
       creator: id,
@@ -90,6 +91,9 @@ function createAction(db, actionText, id, meetingId, callback) {
       completed: ""
     },
     function(err, result) {
+        Meetings.update(meetingId, {$inc: {
+          actions: 1
+        }});
         assert.equal(err, null);
         console.log("Action Created");
         callback(result);
